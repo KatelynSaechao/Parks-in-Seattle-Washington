@@ -90,7 +90,7 @@
                     'assets/edited basemap/{z}/{x}/{y}.png'
                 ],
                 'tileSize': 256,
-                'attribution': 'Map tiles designed by Bo Zhao</a>'
+                'attribution': 'Map tiles designed by Katelyn Saechao</a>'
             });
 
             map.addSource('parks', {
@@ -99,11 +99,29 @@
                     'assets/parks/{z}/{x}/{y}.png'
                 ],
                 'tileSize': 256,
-                'attribution': 'Map tiles designed by Bo Zhao'
+                'attribution': 'Map tiles designed by Katelyn Saechao'
+            });
+
+            map.addSource('edited-basemap-and-parks', {
+                'type': 'raster',
+                'tiles': [
+                    'assets/edited_basemap_and_parks/{z}/{x}/{y}.png'
+                ],
+                'tileSize': 256,
+                'attribution': 'Map tiles designed by Katelyn Saechao</a>'
+            });
+
+            map.addSource('environment-theme', {
+                'type': 'raster',
+                'tiles': [
+                    'assets/environment_theme/{z}/{x}/{y}.png'
+                ],
+                'tileSize': 256,
+                'attribution': 'Map tiles designed by Katelyn Saechao'
             });
 
             map.addLayer({
-                'id': 'edited-basemap',
+                'id': 'edited basemap',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -120,18 +138,36 @@
                 'source': 'parks'
             });
 
+            map.addLayer({
+                'id': 'edited basemap and parks',
+                'type': 'raster',
+                'layout': {
+                    'visibility': 'none'
+                },
+                'source': 'edited-basemap-and-parks'
+            });
+
+            map.addLayer({
+                'id': 'environment theme',
+                'type': 'raster',
+                'layout': {
+                    'visibility': 'none'
+                },
+                'source': 'environment-theme'
+            });
+
         });
 
 
         // After the last frame rendered before the map enters an "idle" state.
         map.on('idle', () => {
             // If these two layers were not added to the map, abort
-            if (!map.getLayer('edited-basemap') || !map.getLayer('parks')) {
+            if (!map.getLayer('edited basemap') || !map.getLayer('parks') || !map.getLayer('edited basemap and parks' || !map.getLayer('environment theme'))) {
                 return;
             }
 
             // Enumerate ids of the layers.
-            const toggleableLayerIds = ['edited-basemap', 'parks'];
+            const toggleableLayerIds = ['edited basemap', 'parks', 'edited basemap and parks', 'environment theme'];
 
             // Set up the corresponding toggle button for each layer.
             for (const id of toggleableLayerIds) {
