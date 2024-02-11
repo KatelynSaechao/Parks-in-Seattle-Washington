@@ -93,10 +93,10 @@
                 'attribution': 'Map tiles designed by Bo Zhao</a>'
             });
 
-            map.addSource('lgbtq-tiles', {
+            map.addSource('parks', {
                 'type': 'raster',
                 'tiles': [
-                    'assets/lgbtq/{z}/{x}/{y}.png'
+                    'assets/parks/{z}/{x}/{y}.png'
                 ],
                 'tileSize': 256,
                 'attribution': 'Map tiles designed by Bo Zhao'
@@ -112,12 +112,12 @@
             });
 
             map.addLayer({
-                'id': 'lgbtq',
+                'id': 'parks',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
                 },
-                'source': 'lgbtq-tiles'
+                'source': 'parks'
             });
 
         });
@@ -126,12 +126,12 @@
         // After the last frame rendered before the map enters an "idle" state.
         map.on('idle', () => {
             // If these two layers were not added to the map, abort
-            if (!map.getLayer('edited-basemap') || !map.getLayer('lgbtq')) {
+            if (!map.getLayer('edited-basemap') || !map.getLayer('parks')) {
                 return;
             }
 
             // Enumerate ids of the layers.
-            const toggleableLayerIds = ['edited-basemap', 'lgbtq'];
+            const toggleableLayerIds = ['edited-basemap', 'parks'];
 
             // Set up the corresponding toggle button for each layer.
             for (const id of toggleableLayerIds) {
