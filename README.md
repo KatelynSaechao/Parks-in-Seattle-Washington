@@ -5,15 +5,19 @@
 ## Screenshots of the four layers
 
 ### *Initial map before selecting a layer*
-![Initial map before selecting a layer]()
+![Initial map before selecting a layer](img/start.png)
 
 ### *First layer: Edited Basemap*
+![First layer: Edited Basemap](img/basemap.png)
 
 ### *Second layer : Parks*
+![Second layer : Parks](img/parkslayer.png)
 
 ### *Third layer : Edited Basemap and Parks*
+![Third layer : Edited Basemap and Parks](img/basemapparks.png)
 
 ### *Fourth layer : Environment Theme*
+![Fourth layer : Environment Theme](img/environment.png)
 
 ## Examined Geographic Area
 For this map, I chose Seattle to be the examined geographic area.
