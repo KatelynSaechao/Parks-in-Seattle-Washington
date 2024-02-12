@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Map Design</title>
+    <title>Map Design of Parks in Seattle</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet">
@@ -65,6 +65,28 @@
         #menu a.active:hover {
             background: #3074a4;
         }
+
+        .map-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-style: solid;
+            border-width: 1px;
+            border-color: rgba(0, 0, 0, 0.2);
+            margin-left: 20px;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+            border-radius: 3px;
+        }
+
+        #features {
+            top: 0;
+            height: 175px;
+            margin-top: 20px;
+            width: 400px;
+        }    
+
     </style>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
 </head>
@@ -72,15 +94,32 @@
 <body>
     <nav id="menu"></nav>
     <div id='map'></div>
+    <div class='map-overlay' id='features'>
+        <h2>Map Design of Parks in Seattle</h2>
+        <div id='text-description'>
+            <p>Created By Katelyn Saechao</p>
+            <p>The map design has been split into four different tilesets/layers.
+                To toggle between layers, click on one of the buttons on the right.
+                To view where parks are located in Seattle, click on either the 
+                "Parks" or "Edited Basemap and Park" layers.
+            </p>
+        </div>
+    </div>
     <script type="text/javascript">
         mapboxgl.accessToken =
             'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw';
         let map = new mapboxgl.Map({
             container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/dark-v10',
-            zoom: 12, // starting zoom
-            center: [-122.2559435, 47.6002614] // starting center
+            style: 'mapbox://styles/mapbox/light-v10',
+            zoom: 10, // starting zoom
+            center: [-122.350616, 47.620564] // starting center
         });
+
+        const nav = new mapboxgl.NavigationControl({
+            showZoom: true, showCompass: false
+        });
+        map.addControl(nav, 'bottom-right');
+
 
         map.on('load', () => { //simplifying the function statement: arrow with brackets to define a function
 
@@ -121,7 +160,7 @@
             });
 
             map.addLayer({
-                'id': 'edited basemap',
+                'id': 'Edited Basemap',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -130,7 +169,7 @@
             });
 
             map.addLayer({
-                'id': 'parks',
+                'id': 'Parks',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -139,7 +178,7 @@
             });
 
             map.addLayer({
-                'id': 'edited basemap and parks',
+                'id': 'Edited Basemap and Parks',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -148,7 +187,7 @@
             });
 
             map.addLayer({
-                'id': 'environment theme',
+                'id': 'Environment Theme',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -162,12 +201,12 @@
         // After the last frame rendered before the map enters an "idle" state.
         map.on('idle', () => {
             // If these two layers were not added to the map, abort
-            if (!map.getLayer('edited basemap') || !map.getLayer('parks') || !map.getLayer('edited basemap and parks' || !map.getLayer('environment theme'))) {
+            if (!map.getLayer('Edited Basemap') || !map.getLayer('Parks') || !map.getLayer('Edited Basemap and Parks' || !map.getLayer('Environment Theme'))) {
                 return;
             }
 
             // Enumerate ids of the layers.
-            const toggleableLayerIds = ['edited basemap', 'parks', 'edited basemap and parks', 'environment theme'];
+            const toggleableLayerIds = ['Edited Basemap', 'Parks', 'Edited Basemap and Parks', 'Environment Theme'];
 
             // Set up the corresponding toggle button for each layer.
             for (const id of toggleableLayerIds) {
